@@ -19,3 +19,9 @@ The DNGR model uses the following steps to compute node embeddings for a given g
 
 *03/09/17 - Problem Conceptualization*
 - Developed a high-level plan for execution for each step. 
+
+
+
+References:
+
+[DNGR: Deep Neural Network for Graphical Representations](https://pdfs.semanticscholar.org/1a37/f07606d60df365d74752857e8ce909f700b3.pdf)
