@@ -17,6 +17,8 @@ Dataset chosen: 20NewsGroup
 
 It can be downloaded [here](https://archive.ics.uci.edu/ml/datasets/Twenty+Newsgroups) or loaded directly using [sklearn](http://scikit-learn.org/stable/datasets/twenty_newsgroups.html)
 
+
+
 **Implementation under progress**
 
 
