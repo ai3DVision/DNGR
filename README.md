@@ -14,6 +14,7 @@ The DNGR model uses the following steps to compute node embeddings for a given g
 3. Feed them to Stacked Denoising Autoencoder to learn non-linear relationships and generate embeddings
 
 Dataset chosen: 20NewsGroup
+
 It can be downloaded [here](https://archive.ics.uci.edu/ml/datasets/Twenty+Newsgroups) or loaded directly using [sklearn](http://scikit-learn.org/stable/datasets/twenty_newsgroups.html)
 
 **Implementation under progress**
