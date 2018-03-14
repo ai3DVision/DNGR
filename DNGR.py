@@ -13,8 +13,6 @@ import numpy as np
 import warnings
 import DNGR_utils as ut
 import matplotlib.pyplot as plt
-from keras.layers import Input, Dense, noise
-from keras.models import Model
 from argparse import ArgumentParser
 
 
@@ -60,6 +58,9 @@ def PPMI_matrix(A):
 
 def sdae(PPMI, hidden_neurons):
     
+    from keras.layers import Input, Dense, noise
+    from keras.models import Model
+
     inp = Input(shape=(PPMI.shape[1],))
     enc = noise.GaussianNoise(0.2)(inp)
     
@@ -86,6 +87,7 @@ def sdae(PPMI, hidden_neurons):
 
 def process(args):
     
+    group = args.group
     num_hops = args.hops
     alpha = args.alpha
     hidden_neurons = args.hidden_neurons
@@ -100,7 +102,7 @@ def process(args):
         sys.exit("DNGR: error: argument --hidden_neurons: Need a minimum of 3 hidden layers")
     
     #Read groups
-    text_corpus, file_names, target = ut.read_data()
+    text_corpus, file_names, target = ut.read_data(group)
     
     #Compute Cosine Similarity Matrix. This acts as Adjacency matrix for the graph.
     cosine_sim_matrix = ut.get_cosine_sim_matrix(text_corpus)
@@ -128,11 +130,15 @@ def main():
     
     parser = ArgumentParser('DNGR',description="This is a Keras implementaion of DNGR evaluating the 20NewsGroup dataset.")
     
+    parser.add_argument('--group', default='NG3', const='NG3', nargs='?',
+                        choices=['NG3','NG6','NG9'], 
+                       help='Choose the group to evaluate')
+
     parser.add_argument('--hops', default=5, type=int, 
                        help='Maximum number of hops for Transition Matrix in Random surfing')
 
     parser.add_argument('--alpha', default=0.98,
-                       help='Probability of (alpha) that surfing will go to next node, probability of (1-alpha) that surfing  will return to original vertex and restart. Range 0-1')
+                       help='Probability of (alpha) that surfing will go to next vertex, probability of (1-alpha) that surfing  will return to original vertex and restart. Range 0-1')
     
     parser.add_argument('--hidden_neurons', default=[512,256,128], type=int, nargs = '+',
                        help='Eg: \'512 256 128\' or \'256 128 64 32\'.  Number of hidden neurons in auto-encoder layers. Make sure there are 3 or more layers')
