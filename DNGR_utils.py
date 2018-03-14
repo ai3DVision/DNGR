@@ -36,14 +36,22 @@ from sklearn import metrics
 #Try removing headers, footers and quotes because classifiers tend to overfit and learn only those parts. Remove them
 #and let it try learning from body
 
-def read_data():
+def read_data(group):
     
-    NG3 = ['comp.graphics','rec.sport.baseball','talk.politics.guns']
+    if group == 'NG3':
+        NG = ['comp.graphics','rec.sport.baseball','talk.politics.guns']
+    elif group == 'NG6':
+        NG = ['alt.atheism','comp.sys.mac.hardware', 'rec.motorcycles', 'rec.sport.hockey','soc.religion.christian',
+             'talk.religion.misc']
+    else:
+        NG = ['talk.politics.mideast', 'talk.politics.misc', 'comp.os.ms-windows.misc','comp.sys.ibm.pc.hardware',
+              'sci.electronics', 'sci.crypt', 'sci.med', 'sci.space', 'misc.forsale']
+        
     text_corpus = []
     file_names = []
-    target = np.arange(0,len(NG3)).tolist()*200
+    target = np.arange(0,len(NG)).tolist()*200
     target.sort()
-    for i,category in enumerate(NG3):
+    for i,category in enumerate(NG):
         np.random.seed(i+42)
         news = fetch_20newsgroups(subset='train',categories=[category])
         permutation = np.arange(len(news.data)).tolist()
