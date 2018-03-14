@@ -43,11 +43,12 @@ def read_data():
     file_names = []
     target = np.arange(0,len(NG3)).tolist()*200
     target.sort()
-    permutation = np.arange(200)
     for i,category in enumerate(NG3):
         np.random.seed(i+42)
-        np.random.shuffle(permutation)
         news = fetch_20newsgroups(subset='train',categories=[category])
+        permutation = np.arange(len(news.data)).tolist()
+        np.random.shuffle(permutation)
+        permutation = random.sample(permutation,200)
         randomtext_200 = np.asarray(news.data)[permutation]
         files_200 = news.filenames[permutation]
         text_corpus = text_corpus + randomtext_200.tolist()
