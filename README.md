@@ -26,9 +26,10 @@ It can be downloaded [here](https://archive.ics.uci.edu/ml/datasets/Twenty+Newsg
 - Developed a high-level plan for execution for each step. 
 
 *03/09/17 - Graph construction*
-- Coded helper functions to create the graph.
+- Coded helper functions to create the graph adjacency matrix.
 
-
+*03/13/17 - PPMI, auto-encoder, TSNE*
+- Computed PPMI matrix, node embedding generation using auto-encoder and visualization of embedding using TSNE
 
 References:
 
