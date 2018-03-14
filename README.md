@@ -1,7 +1,7 @@
 # DNGR : Deep Neural Networks for Graph Representations
 
 
-*This is a python implementation of DNGR model using TensorFlow*
+*This is a python implementation of DNGR model using Keras*
 
 
 The DNGR model uses the following steps to compute node embeddings for a given graph
@@ -27,7 +27,7 @@ Run the code by entering:
 
 A Full list of cmd line arguments are shown by entering: 
 ```
-python DNGR.py -h
+python3 DNGR.py -h
 ```
 
 ```
@@ -51,10 +51,10 @@ optional arguments:
 
 Here is an example of how you would pass arguments from the terminal:
 ```
-python DNGR.py --hops 4 --alpha 0.95 --hidden_neurons 512,128,64,32 
+python3 DNGR.py --hops 4 --alpha 0.95 --hidden_neurons 512 128 64 32 
 ```
 
-*A Jupyter notebook version of the implementation titled DeepWalk.ipynb has also been included in the repository.*
+*A Jupyter notebook version of the implementation titled DNGR.ipynb has also been included in the repository.*
 
 **A report including the results and comparisons will be uploaded soon**
 
