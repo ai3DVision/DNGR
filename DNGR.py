@@ -61,7 +61,7 @@ def PPMI_matrix(A):
 def sdae(PPMI, hidden_neurons):
     
     inp = Input(shape=(PPMI.shape[1],))
-    enc = noise.GaussianNoise(0.5)(inp)
+    enc = noise.GaussianNoise(0.2)(inp)
     
     for neurons in hidden_neurons:
         enc = Dense(neurons, activation = 'relu')(enc)
