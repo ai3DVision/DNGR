@@ -105,7 +105,7 @@ def visualize_TSNE(embeddings,target):
     tsne = TSNE(n_components=2, init='pca',
                          random_state=0, perplexity=30)
     data = tsne.fit_transform(embeddings)
-    plt.figure(figsize=(12, 6))
+    #plt.figure(figsize=(12, 6))
     plt.title("TSNE visualization of the embeddings")
     plt.scatter(data[:,0],data[:,1],c=target)
 
