@@ -2,8 +2,9 @@
 # coding: utf-8
 
 """
-Keras implementation of DNGR model. Generate embeddings for 3NG 
-of 20NewsGroup dataset. Also visualizing embeddings with t-SNE.
+Keras implementation of DNGR model. Generate embeddings for NG3, NG6 and NG9   
+of 20NewsGroup dataset. Evaluate with F1-score from MNB classifier and NMI score.
+Also visualizing embeddings with t-SNE.
 
 Author: Apoorva Vinod Gorur
 """
@@ -58,20 +59,25 @@ def PPMI_matrix(A):
 
 def sdae(PPMI, hidden_neurons):
     
+    #local import
     from keras.layers import Input, Dense, noise
     from keras.models import Model
 
+    #Input layer. Corrupt with Gaussian Noise. 
     inp = Input(shape=(PPMI.shape[1],))
     enc = noise.GaussianNoise(0.2)(inp)
     
+    #Encoding layers. Last layer is the bottle neck
     for neurons in hidden_neurons:
         enc = Dense(neurons, activation = 'relu')(enc)
     
+    #Decoding layers
     dec = Dense(hidden_neurons[-2], activation = 'relu')(enc)
     for neurons in hidden_neurons[:-3][::-1]:
         dec = Dense(neurons, activation = 'relu')(dec)
     dec = Dense(PPMI.shape[1], activation='relu')(dec)
     
+    #Train
     auto_enc = Model(inputs=inp, outputs=dec)
     auto_enc.compile(optimizer='adam', loss='mse')
     
@@ -93,7 +99,7 @@ def process(args):
     hidden_neurons = args.hidden_neurons
     
     if num_hops < 1:
-        sys.exit("DNGR: error: argument --hops: Max hops should be a positive natural number")
+        sys.exit("DNGR: error: argument --hops: Max hops should be a positive whole number")
         
     if alpha < 0.0 or alpha > 1.0:
         sys.exit("DNGR: error: argument --alpha: Alpha's range is 0-1")
@@ -122,6 +128,7 @@ def process(args):
     #Visualize embeddings using t-SNE
     ut.visualize_TSNE(embeddings, target)
     plt.show()
+    
     return
 
 
@@ -134,7 +141,7 @@ def main():
                         choices=['NG3','NG6','NG9'], 
                        help='Choose the group to evaluate')
 
-    parser.add_argument('--hops', default=5, type=int, 
+    parser.add_argument('--hops', default=2, type=int, 
                        help='Maximum number of hops for Transition Matrix in Random surfing')
 
     parser.add_argument('--alpha', default=0.98,
