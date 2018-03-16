@@ -64,26 +64,6 @@ python3 DNGR.py --group NG6 --hops 4 --alpha 0.98 --hidden_neurons 512 128 64 32
 
 *A Jupyter notebook version of the implementation titled DNGR.ipynb has also been included in the repository.*
 
-**A report including the results and comparisons will be uploaded soon**
-
-**Implementation under progress**
-
-
-*03/09/18 - Problem Conceptualization*
-- Developed a high-level plan for execution for each step. 
-
-*03/09/18 - Graph construction*
-- Coded helper functions to create the graph adjacency matrix.
-
-*03/13/18 - PPMI, auto-encoder, TSNE*
-- Computed PPMI matrix, node embedding generation using auto-encoder and visualization of embedding using TSNE
-
-*03/14/18 - cmd-line args, code-refactoring, instructions for running*
-- Added command line arguments. Refactored the code. Added instructions and references in ReadMe.
-
-*03/14/18 - NG6, NG9*
-- Added functionality to process NG6 and NG9 groups as well.
-
 
 **References:**
 
