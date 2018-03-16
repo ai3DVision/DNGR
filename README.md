@@ -7,7 +7,7 @@
 The DNGR model uses the following steps to compute node embeddings for a given graph
 
 
-1. Use Random Surfing Model to construct transition matricies for all vertices
+1. Use Random Surfing Model to construct transition matrix for the nodes
 
 2. Construct PPMI matrices for the transition matrix
 
@@ -59,7 +59,7 @@ optional arguments:
 
 Here is an example of how you would pass arguments from the terminal:
 ```
-python3 DNGR.py --group NG6 --hops 4 --alpha 0.98 --hidden_neurons 512 128 64 32 
+python3 DNGR.py --group NG6 --hops 4 --alpha 0.98 --hidden_neurons 512 256 128 
 ```
 
 *A Jupyter notebook version of the implementation titled DNGR.ipynb has also been included in the repository.*
