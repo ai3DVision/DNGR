@@ -1,21 +1,17 @@
 
 # coding: utf-8
 
-# In[ ]:
-
-
 """
 Note: Following conventions from 
 Tian, F.; Gao, B.; Cui, Q.; Chen, E.; and Liu, T.-Y. 2014. Learning deep representations for graph clustering.
 They have 3 types of classifications, a 3 group, 6 group and a 9 group classification.
-The 3 group classification has 200 artices sampled at random from each of the groups listed in NG3 below.
+For each topic in the group, 200 documents are sampled at random. So NG3 contains 600 documents, NG6 contains 1200 documents
+and NG9 contains 1800 documents.
 Each article is converted into a TF-IDF vector from the whole corpus. 
 The graph construction is done by taking the TF-IDF vectors as nodes and the cosine similarity between them as edge weights.
+
+Author : Apoorva Vinod Gorur
 """
-
-
-# In[6]:
-
 
 import numpy as np
 import random
@@ -29,12 +25,9 @@ from sklearn.metrics.cluster import normalized_mutual_info_score
 from sklearn import metrics
 
 
-# In[2]:
-
-
-#newsgroups_train = fetch_20newsgroups(subset='train',remove=('headers', 'footers', 'quotes'),categories=categories)
 #Try removing headers, footers and quotes because classifiers tend to overfit and learn only those parts. Remove them
-#and let it try learning from body
+#and let it try learning from body of the documents.
+#newsgroups_train = fetch_20newsgroups(subset='train',remove=('headers', 'footers', 'quotes'),categories=categories)
 
 def read_data(group):
     
@@ -65,8 +58,6 @@ def read_data(group):
     return text_corpus, file_names, target
 
 
-# In[3]:
-
 
 def get_cosine_sim_matrix(text_corpus):
     
@@ -77,7 +68,6 @@ def get_cosine_sim_matrix(text_corpus):
     return cosine_sim_matrix
 
 
-# In[ ]:
 
 
 def scale_sim_matrix(mat):
@@ -85,10 +75,10 @@ def scale_sim_matrix(mat):
     mat = mat - np.diag(np.diag(mat)) #Make diag elements zero
     D_inv = np.diag(np.reciprocal(np.sum(mat,axis=0)))
     mat = np.dot(D_inv, mat)
+    
     return mat
 
 
-# In[7]:
 
 
 def compute_metrics(embeddings, target):
@@ -105,8 +95,6 @@ def compute_metrics(embeddings, target):
     
     return
 
-
-# In[ ]:
 
 
 def visualize_TSNE(embeddings,target):
