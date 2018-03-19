@@ -16,6 +16,8 @@ Author : Apoorva Vinod Gorur
 import numpy as np
 import random
 import matplotlib.pyplot as plt
+from time import perf_counter
+from datetime import timedelta
 from sklearn.datasets import fetch_20newsgroups
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -23,6 +25,19 @@ from sklearn.manifold import TSNE
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics.cluster import normalized_mutual_info_score
 from sklearn import metrics
+
+
+def timer(msg):
+    def inner(func):
+        def wrapper(*args, **kwargs):
+            t1 = perf_counter()
+            ret = func(*args, **kwargs)
+            t2 = perf_counter()
+            print("Time elapsed for "+msg+" ----> "+str(timedelta(seconds=t2-t1)))
+            print("\n---------------------------------------\n")
+            return ret
+        return wrapper
+    return inner
 
 
 #Try removing headers, footers and quotes because classifiers tend to overfit and learn only those parts. Remove them
@@ -69,7 +84,6 @@ def get_cosine_sim_matrix(text_corpus):
 
 
 
-
 def scale_sim_matrix(mat):
     #Row-wise sacling of matrix
     mat = mat - np.diag(np.diag(mat)) #Make diag elements zero
@@ -77,7 +91,6 @@ def scale_sim_matrix(mat):
     mat = np.dot(D_inv, mat)
     
     return mat
-
 
 
 
@@ -96,7 +109,7 @@ def compute_metrics(embeddings, target):
     return
 
 
-
+@timer("T-SNE visualization")
 def visualize_TSNE(embeddings,target):
     tsne = TSNE(n_components=2, init='pca',
                          random_state=0, perplexity=30)

@@ -18,6 +18,7 @@ from argparse import ArgumentParser
 
 
 #Stage 1 -  Random Surfing
+@ut.timer("Random_Surfing")
 def random_surf(cosine_sim_matrix, num_hops, alpha):
     
     num_nodes = len(cosine_sim_matrix)
@@ -36,6 +37,7 @@ def random_surf(cosine_sim_matrix, num_hops, alpha):
 
 
 #Stage 2 - PPMI Matrix
+@ut.timer("Generating PPMI matrix")
 def PPMI_matrix(A):
     
     num_nodes = len(A)
@@ -55,8 +57,8 @@ def PPMI_matrix(A):
     
     return PPMI
 
-
-
+#Stage 3 - AutoEncoders
+@ut.timer("Generating embeddings with AutoEncoders")
 def sdae(PPMI, hidden_neurons):
     
     #local import
@@ -90,7 +92,7 @@ def sdae(PPMI, hidden_neurons):
     return embeddings
 
 
-
+@ut.timer("the whole process")
 def process(args):
     
     group = args.group
